@@ -1,0 +1,137 @@
+# White Paper: Object Structure of Spooky2 Presets
+
+## 1. Introduction
+
+Spooky2 presets are specialized files used in frequency therapy applications. This white paper aims to provide a detailed explanation of the structure of Spooky2 presets, their components, and the relationships between these components. Understanding this structure is crucial for accurate parsing, generation, and processing of Spooky2 presets.
+
+## 2. Overall Structure of a Spooky2 Preset
+
+A Spooky2 preset consists of three main parts:
+
+1. Opening Tag
+2. Preset Content (Header and Frequency Data)
+3. Closing Tag
+
+## 3. Spooky2 Preset Structure
+
+### 3.1 Opening and Closing Tags
+
+- Opening Tag: `"[Preset]"`
+- Closing Tag: `"[/Preset]"`
+
+These tags encapsulate the entire preset content.
+
+### 3.2 Preset Content
+
+The preset content is composed of key-value pairs, each on a separate line. The content can be divided into two main sections:
+
+1. Header Information
+2. Frequency Data
+
+#### 3.2.1 Header Information
+
+The header contains metadata and settings for the preset. Key fields include:
+
+- `"PresetName="`: Name of the preset
+- `"Preset_Notes="`: Additional information or copyright notices
+- Various settings (e.g., "Repeat_Each_Frequency=", "Out1_Amplitude=", etc.)
+
+Example:
+```
+"PresetName=Example Preset Name"
+"Repeat_Each_Frequency=1"
+"Out1_Amplitude=20"
+```
+
+#### 3.2.2 Frequency Data
+
+The frequency data consists of two types of entries:
+
+1. Loaded Programs
+2. Loaded Frequencies
+
+##### 3.2.2.1 Loaded Programs
+
+Each "Loaded_Programs" entry represents a frequency set. Multiple entries can exist in a single preset.
+
+Format: `"Loaded_Programs=<set_name> <date1> <date2> ..."`
+
+Example:
+```
+"Loaded_Programs=herpes simplex hepatitis 20100101 20170411 20170929"
+```
+
+##### 3.2.2.2 Loaded Frequencies
+
+All frequencies from all sets are combined into a single "Loaded_Frequencies" entry.
+
+Format: `"Loaded_Frequencies=<freq1>=<dwell>,<freq2>=<dwell>,..."`
+
+- Single frequencies: `<frequency>=<dwell>`
+- Fuzzed frequencies: `<lower_freq>-<upper_freq>=<dwell>`
+
+Example:
+```
+"Loaded_Frequencies=45454.45454545=60,54664942.6162-54670409.3838=60,..."
+```
+
+## 4. Object Representation
+
+When parsing a Spooky2 preset, it can be represented as an object with the following structure:
+
+```json
+{
+  "header": {
+    "presetName": "Example Preset Name",
+    "presetNotes": "Copyright notice and additional information",
+    "settings": {
+      "repeatEachFrequency": 1,
+      "out1Amplitude": 20,
+      // ... other settings ...
+    }
+  },
+  "frequencySets": [
+    {
+      "name": "herpes simplex hepatitis",
+      "dates": ["20100101", "20170411", "20170929"],
+      "frequencies": [
+        {
+          "type": "single",
+          "value": 45454.45454545,
+          "dwell": 60
+        },
+        {
+          "type": "fuzzed",
+          "lowerValue": 54664942.6162,
+          "upperValue": 54670409.3838,
+          "dwell": 60
+        },
+        // ... more frequencies ...
+      ]
+    },
+    // ... more frequency sets ...
+  ]
+}
+```
+
+## 5. Parsing Considerations
+
+When parsing a Spooky2 preset:
+
+1. All key-value pairs are enclosed in double quotes.
+2. The "Loaded_Frequencies" string may be very long and contain thousands of frequencies.
+3. Frequency values should be parsed with high precision (at least 8 decimal places).
+4. Dwell times are typically in seconds and are usually integers.
+
+## 6. Generation Considerations
+
+When generating a Spooky2 preset:
+
+1. Ensure all key-value pairs are enclosed in double quotes.
+2. Combine all frequencies from all sets into a single "Loaded_Frequencies" string.
+3. Use 8 decimal places for frequency values when possible.
+4. Ensure the preset is enclosed within the "[Preset]" and "[/Preset]" tags.
+
+## 7. Conclusion
+
+Understanding the structure of Spooky2 presets is crucial for working with frequency therapy data. This white paper provides a comprehensive guide to the components of a Spooky2 preset, their relationships, and how they should be structured in a parsed object. Adherence to this structure will ensure consistent and correct interpretation of Spooky2 presets across different systems and applications working with frequency therapy data.

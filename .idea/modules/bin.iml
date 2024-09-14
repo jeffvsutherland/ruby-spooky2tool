@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RUBY_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../../bin">
+      <sourceFolder url="file://$MODULE_DIR$/../../bin/features" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../bin/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../bin/test" isTestSource="true" />
+    </content>
+    <orderEntry type="jdk" jdkName="ruby-3.2.0-p0" jdkType="RUBY_SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="bundler (v2.5.3, ruby-3.2.0-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="clipboard (v2.0.0, ruby-3.2.0-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="fileutils (v1.7.2, ruby-3.2.0-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="json (v2.7.2, ruby-3.2.0-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="logger (v1.6.1, ruby-3.2.0-p0) [gem]" level="application" />
+  </component>
+  <component name="RubyModuleProperties">
+    <option name="autoCreated" value="true" />
+  </component>
+</module>

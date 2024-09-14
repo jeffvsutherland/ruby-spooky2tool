@@ -1,0 +1,177 @@
+# White Paper: Structure and Parsing of F100 Scripts
+
+## 1. Introduction
+
+F100 scripts are specialized files used in frequency therapy applications. This white paper aims to provide a detailed explanation of the structure of F100 scripts, their components, and the relationships between these components. Understanding this structure is crucial for accurate parsing and processing of F100 scripts.
+
+## 2. Overall Structure of an F100 Script
+
+An F100 script consists of two main parts:
+
+1. Frequency Program Header
+2. One or more Frequency Sets
+
+## 3. Frequency Program Structure
+
+A Frequency Program is the top-level object in an F100 script. It contains:
+
+1. A Header object
+2. One or more Frequency Set objects
+
+### 3.1 Header Object
+
+The Header object contains metadata about the program. It has the following components:
+
+1. Program Name and Dates
+2. Copyright Information
+3. Keywords
+4. Program Settings
+
+#### 3.1.1 Program Name and Dates
+
+- Starts with a '#' symbol
+- Followed by the program name
+- Ends with one or more dates in YYYYMMDD format
+- Example: `#032442_post polio syndrome 323232 20240912`
+
+#### 3.1.2 Copyright Information
+
+- A line containing copyright details
+- Example: `#copyright 2005-2024 Frequency Research Foundation, USA. All rights reserved.`
+
+#### 3.1.3 Keywords
+
+- Multiple lines starting with '#'
+- Each line represents a keyword or category
+- Examples:
+  ```
+  #pathology
+  #allergens
+  #microorganisms
+  ```
+
+#### 3.1.4 Program Settings
+
+- Lines containing program-wide settings
+- Examples:
+  ```
+  repeat 4
+  dwell 60
+  program c
+  ```
+
+### 3.2 Frequency Set Object
+
+A Frequency Set object represents a group of related frequencies. It contains:
+
+1. Frequency Set Name and Dates
+2. One or more Frequency Components
+
+#### 3.2.1 Frequency Set Name and Dates
+
+- Starts with a '#' symbol
+- Followed by the set name
+- Ends with one or more dates in YYYYMMDD format
+- Example: `#polio dizzy sleepy osteoarthristis git 20190623 20191212 20200424 20240911`
+
+#### 3.2.2 Frequency Component
+
+A Frequency Component consists of:
+
+1. A Fuzz Line
+2. One or more Frequency Lines
+
+##### 3.2.2.1 Fuzz Line
+
+- Starts with the keyword "fuzz"
+- Followed by two percentage values
+- Example: `fuzz .005% 2`
+
+##### 3.2.2.2 Frequency Lines
+
+- One or more lines containing numeric frequency values
+- Multiple frequencies can be on a single line, separated by spaces
+- Example:
+  ```
+  54667676 46767676 34545454 24545454 20454545
+  19454545 18454545 17454545 16454545 15454545 14454545 13454545 12454545 11454545
+  ```
+
+## 4. Parsing an F100 Script
+
+When parsing an F100 script, follow these steps:
+
+1. Identify the Header:
+   - Extract the program name and dates from the first line starting with '#'
+   - Collect all lines starting with '#' as keywords or copyright information
+   - Identify program settings (repeat, dwell, program, etc.)
+
+2. Identify Frequency Sets:
+   - Look for lines starting with '#' after the header section
+   - Each of these lines marks the beginning of a new Frequency Set
+
+3. For each Frequency Set:
+   - Extract the set name and dates from the line starting with '#'
+   - Identify Frequency Components:
+     - Look for lines starting with "fuzz"
+     - Collect all subsequent numeric lines until the next "fuzz" line or end of the set
+
+4. Structure the parsed data into a Frequency Program object containing:
+   - A Header object
+   - An array of Frequency Set objects, each containing:
+     - Set name and dates
+     - An array of Frequency Component objects, each containing:
+       - Fuzz values
+       - An array of frequencies
+
+## 5. Example Object Structure
+
+Here's a representation of the object structure for an F100 script:
+
+```json
+{
+  "header": {
+    "programName": "032442_post polio syndrome 323232",
+    "dates": ["20240912"],
+    "copyright": "copyright 2005-2024 Frequency Research Foundation, USA. All rights reserved.",
+    "keywords": ["pathology", "allergens", "microorganisms", "allopathy", "homeopathy", "bach flower remedies", "vitamins"],
+    "settings": {
+      "repeat": 4,
+      "dwell": 60,
+      "program": "c"
+    }
+  },
+  "frequencySets": [
+    {
+      "name": "polio dizzy sleepy osteoarthristis git",
+      "dates": ["20190623", "20191212", "20200424", "20240911"],
+      "components": [
+        {
+          "fuzz": [0, 0],
+          "frequencies": [45454.45454545]
+        },
+        {
+          "fuzz": [0.00005, 0.02],
+          "frequencies": [54667676, 46767676, 34545454, 24545454, 20454545, 19454545, 18454545, 17454545, 16454545, 15454545, 14454545, 13454545, 12454545, 11454545, 10454545, 9454545, 8454545, 7454545, 6454545, 5454545, 4754545, 3454545, 2454545, 1454545]
+        },
+        {
+          "fuzz": [0.0005, 0.01],
+          "frequencies": [945454, 845454, 745454, 665454, 645454, 545454, 465454, 445454, 323232, 245454, 167676, 145454, 94545, 84545, 74545]
+        },
+        {
+          "fuzz": [0.0005, 0.002],
+          "frequencies": [64545, 54545, 44545, 34545, 24545, 14545, 9454, 8454, 7454, 6454, 5454, 4545, 3454, 2454, 1454]
+        },
+        {
+          "fuzz": [0.0005, 0.001],
+          "frequencies": [945, 845, 745, 645, 554, 467, 345, 245, 145]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## 6. Conclusion
+
+Understanding the precise structure of F100 scripts is crucial for accurate parsing and processing. This white paper provides a comprehensive guide to the components of an F100 script, their relationships, and how they should be structured in a parsed object. Adherence to this structure will ensure consistent and correct interpretation of F100 scripts across different systems and applications working with frequency therapy data.

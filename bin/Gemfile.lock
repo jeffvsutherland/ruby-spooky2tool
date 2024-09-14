@@ -1,0 +1,21 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    clipboard (2.0.0)
+    fileutils (1.7.2)
+    json (2.7.2)
+    logger (1.6.1)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+  x64-mingw-ucrt
+
+DEPENDENCIES
+  clipboard
+  fileutils
+  json
+  logger
+
+BUNDLED WITH
+   2.5.3

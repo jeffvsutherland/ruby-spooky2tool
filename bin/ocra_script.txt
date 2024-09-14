@@ -1,0 +1,8 @@
+ocra "/Users/jeffsutherland/Frequency Research Foundation Inc. Dropbox/Frequency Lab/Ruby/ruby spooky2tool/bin/f100_to_spooky2.rb" --icon "f100toSpooky.ico
+
+ocra "/Users/jeffsutherland/Frequency Research Foundation Inc. Dropbox/Frequency Lab/Ruby/ruby spooky2tool/bin/f100_to_spooky2.rb" --icon "f100toSpooky.ico" --console
+
+ocra f100_to_spooky2.rb" --icon "f100toSpooky.ico" --console"
+
+Lastest claude version
+ocra f100_to_spooky2.rb --icon f100_to_spooky2.ico --add-all-core --no-enc
